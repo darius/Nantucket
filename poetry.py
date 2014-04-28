@@ -38,8 +38,8 @@ def phonemes(word):
     # If not, try to use my cmu-based last syllable dictionary
 
     # if we cannot detect the last syllable, give up
-    syl_re = re.compile("([bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)")
-    if not syl_re.search(word):
+    syl_re = re.compile(r"([bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)")
+    if not syl_re.search(word): # XXX make sure word has no chars with special meaning as a regex
         return False
 
     last_syl = syl_re.search(word).group()
@@ -71,16 +71,16 @@ def approx_nsyl(word):
     # Ambiguous, currently split: ie, io
     # Ambiguous, currently kept together: ui
     count = 0
-    array = re.split("[^aeiouy]+", word.lower())
+    array = re.split(r"[^aeiouy]+", word.lower())
     for i, v in enumerate(array):
         if len(v) > 1 and v not in digraphs:
             count += 1
         if v == '':
             del array[i]
     count += len(array)
-    if re.search("(?<=\w)(ion|ious|(?<!t)ed|es|[^lr]e)(?![a-z']+)", word.lower()):
+    if re.search(r"(?<=\w)(ion|ious|(?<!t)ed|es|[^lr]e)(?![a-z']+)", word.lower()):
         count -= 1
-    if re.search("'ve|n't", word.lower()):
+    if re.search(r"'ve|n't", word.lower()):
         count += 1
     return count
 
@@ -114,9 +114,9 @@ def rhyme(word1, word2):
 
 
 def tokenize_text(text):
-    text = re.sub("[^a-zA-Z\s'-]", '', text)
-    text = re.sub("'(?![a-z]{1,2})", '', text)
-    tokens = re.split("\s+|-", text)
+    text = re.sub(r"[^a-zA-Z\s'-]", '', text)
+    text = re.sub(r"'(?![a-z]{1,2})", '', text)
+    tokens = re.split(r"\s+|-", text)
     # remove empty tokens
     tokens = filter(None, tokens)
     return tokens

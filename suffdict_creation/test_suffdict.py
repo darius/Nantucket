@@ -16,8 +16,8 @@ suffdict = suffdict.dict()
 
 def suffdict_phonemes(word):
     # Use my cmu-based last syllable dictionary
-    if re.search("((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()):
-        last_syl = re.search("((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()).group()
+    if re.search(r"((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()):
+        last_syl = re.search(r"((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()).group()
         if last_syl in suffdict:
             return suffdict[last_syl][0]
         # else try without the first letter

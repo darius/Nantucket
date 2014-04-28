@@ -23,8 +23,8 @@ entries = cmudict.entries()
 def suff(dict):
     f = open('suff_a.txt', 'a')
     for word, vals in dict.iteritems():
-        if re.search("((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word):
-            graphemes = re.search("((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word).group()
+        if re.search(r"((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word):
+            graphemes = re.search(r"((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word).group()
         val = min(vals, key=len)
         # for val in vals:
         i = -1
@@ -43,11 +43,11 @@ def most_prob(file):
     goal = open('suff_c.txt', 'a')
     with open(file) as f:
         for line in f:
-            suff = re.search("\s[a-zA-Z']+\s", line).group()
+            suff = re.search(r"\s[a-zA-Z']+\s", line).group()
             if suff not in uniq_suffs:
                 uniq_suffs.append(suff)
-                new_line = re.sub("\d+\s(?=[a-z])", "", line)
-                new_line = re.sub("(?<=[a-z])\s(?=[A-Z])", " 1 ", new_line).strip()
+                new_line = re.sub(r"\d+\s(?=[a-z])", "", line)
+                new_line = re.sub(r"(?<=[a-z])\s(?=[A-Z])", " 1 ", new_line).strip()
                 goal.write(new_line + '\n')
     goal.close()
 
