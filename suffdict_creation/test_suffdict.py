@@ -16,6 +16,7 @@ suffdict = suffdict.dict()
 
 def suffdict_phonemes(word):
     # Use my cmu-based last syllable dictionary
+    # XXX the pattern below appears to be the same as `pattern` in suffdict.py
     if re.search(r"((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()):
         last_syl = re.search(r"((?i)[bcdfghjklmnpqrstvwxz]{1,2}[aeiouy]+[bcdfghjklmnpqrstvwxz]*(e|ed)?('[a-z]{1,2})?)(?![a-zA-Z]+)", word.lower()).group()
         if last_syl in suffdict:
