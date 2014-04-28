@@ -112,13 +112,13 @@ def rhyme(word1, word2):
     list2 = min(d[word2.lower()], key=len)
     return rhyme_from_phonemes(list1, list2)
 
-
+## tokenize_text("she's the one who said 'whee'")
+#. ["she's", 'the', 'one', 'who', 'said', 'whee']
 def tokenize_text(text):
-    text = re.sub(r"[^a-zA-Z\s'-]", '', text)
-    text = re.sub(r"'(?![a-z]{1,2})", '', text)
-    tokens = re.split(r"\s+|-", text)
-    # remove empty tokens
-    tokens = filter(None, tokens)
+    text = re.sub(r"[^a-zA-Z\s'-]", '', text)   # Keep only letters, spaces, apostrophe, and hyphen.
+    text = re.sub(r"'(?![a-z]{1,2}(?![a-zA-Z]))", '', text) # Keep apostrophe only when followed by 1 to 2 lowercase letters.
+    tokens = re.split(r"\s+|-", text)           # Split into words by whitespace and single hyphens.
+    tokens = filter(None, tokens)               # That can produce empty-string tokens; remove them.
     return tokens
 
 
