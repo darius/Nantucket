@@ -5,7 +5,7 @@ from curses.ascii import isdigit
 from nltk.corpus import cmudict
 d = cmudict.dict()
 from nltk.corpus.util import LazyCorpusLoader
-from nltk.corpus.reader import *
+from nltk.corpus.reader import CMUDictCorpusReader
 suffdict = LazyCorpusLoader(
     'cmusuffdict', CMUDictCorpusReader, ['cmusuffdict'])
 suffdict = suffdict.dict()
