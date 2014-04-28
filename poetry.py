@@ -52,14 +52,14 @@ def phonemes(word):
     elif last_syl[-2:] == "'s":
         p = try_syllable(last_syl[:-2])
         if p:
-            return p.append('Z')
+            return p + ['Z']
         else:
             return False
     # else try without the last letter, if it ends in s
     elif last_syl[-1] == "s":
         p = try_syllable(last_syl[:-1])
         if p:
-            return p.append('Z')
+            return p + ['Z']
         else:
             return False
     else:  # If not in cmudict or my cmusuffdict
