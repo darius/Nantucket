@@ -19,12 +19,17 @@ entries = cmudict.entries()
 
 # maybe also keep track of total syllable count per phoneme, to affect the odds
 
+consonant = r"[BCDFGHJKLMNPQRSTVWXZ]"
+# case insensitive; 
+# 1 to 2 consonants; 1 or more vowels; any consonants; optional E or ED;
+# optional ' then 1 to 2 letters; no following letters.
+pattern = r"((?i)"+consonant+r"{1,2}[AEIOUY]+"+consonant+r"*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)"
 
 def suff(dict):
     f = open('suff_a.txt', 'a')
     for word, vals in dict.iteritems():
-        if re.search(r"((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word):
-            graphemes = re.search(r"((?i)[BCDFGHJKLMNPQRSTVWXZ]{1,2}[AEIOUY]+[BCDFGHJKLMNPQRSTVWXZ]*(E|ED)?('[A-Z]{1,2})?)(?![a-zA-Z]+)", word).group()
+        if re.search(pattern, word):
+            graphemes = re.search(pattern, word).group()
         val = min(vals, key=len)
         # for val in vals:
         i = -1
